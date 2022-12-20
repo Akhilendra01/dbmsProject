@@ -13,7 +13,7 @@ app.use(methodOverride('_method'));
 const db=mysql.createConnection({
     host:"localhost",
     user:"root",
-    password:"Example@2022#",
+    password:"TesterO1$5+#",
     database:"projectdb"
 });
 db.connect(err=>{
