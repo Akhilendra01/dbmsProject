@@ -9,18 +9,19 @@ app.set('view engine', 'ejs');
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride('_method'));
 
+// db connection
 const db=mysql.createConnection({
     host:"localhost",
     user:"root",
     password:"Example@2022#",
     database:"projectdb"
 });
-
 db.connect(err=>{
     if(err)console.log(err);
     else console.log('connected');
 })
 
+// adds a new store at home page
 app.post('/home', (req, res) => {
     const data = req.body;
     let id=Math.ceil(Math.random()*50)+5;
@@ -33,6 +34,8 @@ app.post('/home', (req, res) => {
     });
 });
 
+
+// adds a new game in a store and also in games table if required
 app.post('/store/:id', (req, res)=>{
     const data=req.body;
     const {id: store_id}=req.params;
@@ -52,6 +55,15 @@ app.post('/store/:id', (req, res)=>{
     });
 });
 
+// adds a new customer to database
+app.post('/newCustomer', (req, res)=>{
+    const data=req.body;
+    var sql=`insert into customer values (${+data.cust_id}, "${data.name}");`;
+    db.query(sql, (err, data)=>{});
+    res.redirect('/home');
+});
+
+// renders home page
 app.get('/home', (req, res)=>{
     var sql = `select * from store`;
     db.query(sql, (err, data) => {
@@ -60,10 +72,14 @@ app.get('/home', (req, res)=>{
     });
 });
 
+
+// renders form to add new store
 app.get('/newStore', (req, res)=>{
     res.render('newStore');
 });
 
+
+// renders information about a store
 app.get('/store/:id', (req, res)=>{
     const {id}=req.params;
     var sql=`select * from available natural join games where ${id}=store_id`;
@@ -73,12 +89,15 @@ app.get('/store/:id', (req, res)=>{
     });
 });
 
-
+// renders form to add a new game to a store
 app.get('/store/:id/addNewGame', (req, res)=>{
     const {id}=req.params;
     res.render('addNewGame', {id});
 });
 
+app.get('/newCustomer', (req, res)=>{
+    res.render('newCustomer');
+});
 
 app.listen(3000, ()=>{
     console.log('Listening to port 3000');

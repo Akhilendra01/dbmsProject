@@ -18,9 +18,11 @@
 <body >
     <% for(let game of data){ %>
         <h3><%= game.game_id %>  <%= game.name %>  <%= game.copies_aval %>
-            <a href=""></a>
+            <a href="/store/<%= id %>/rent/<%= game.game_id %>">Rent</a>
+            <a href="/store/<%= id %>/return/<%= game.game_id %>">Return</a>
         </h3>
         <% } %>  
+        <a href="/newCustomer">New Customer?</a>
         <a href="/store/<%= id %>/addNewGame">Add a New Game</a>
         <a href="/home">Back</a>
 </body>

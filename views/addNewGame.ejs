@@ -34,6 +34,7 @@
         padding: 5px;
         width: 80%;
         margin-bottom: 20px;
+        transition: width 0.8s 0.2s; 
     }
     input:focus{
         font-size: 18px;
@@ -90,6 +91,7 @@
 
         <button type="submit">Save</button>  
     </form>
+    
     <script>
         const gameID = document.querySelector('#gameid');
             const generate = document.querySelector('#generate');
@@ -100,7 +102,7 @@
                 console.log(num);
                 gameID.value=num;
                 generate.disabled=true;
-                generate.style="background-color: grey;"
+                generate.style="background-color: grey; cursor: not-allowed;"
                 gameID.disabled=true;
             });
     </script>
