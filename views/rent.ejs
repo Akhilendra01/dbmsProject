@@ -3,7 +3,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>New Customer</title>
+    <title>Document</title>
 </head>
 
 <style>
@@ -38,7 +38,7 @@
         padding: 5px;
         width: 80%;
         margin-bottom: 20px;
-        transition: width 0.8s;
+        transition: width 0.8s 0.2s;
     }
 
     input:focus {
@@ -63,43 +63,30 @@
         padding-inline: 20px;
         border-radius: 5px;
         cursor: pointer;
-
-    }
-
-    #generate {
-        font-size: 14px;
-        height: 20px;
-        margin-bottom: 10px;
     }
 </style>
-
-
 <body>
-    <h1>Add a new Customer</h1>
-    <form action="/newCustomer" method="POST">
-            <label for="custid">Customer ID
-                <button id="generate">Generate</button>
-            </label>
-            <input type="number" id="custid" name="cust_id" required>
- 
-            <label for="name">Name</label>
-            <input type="text" id="name" name="name" required>
+    <h1>Rent</h1>
+    <form action="/rent" method="POST">
+        <label for="cust_id">Customer ID</label>
+        <input type="text" id="cust_id" name="cust_id" required>
 
-            <button type="submit">Save</button>
+        <label for="game_id">Game ID</label>
+        <input type="text" id="game_id" name="game_id" value="<%= game_id %>" required>
+
+        <label for="store_id">Store ID</label>
+        <input type="text" id="store_id" name="store_id" value="<%= store_id %>" required>
+
+        <label for="rentdate">Rent Date</label>
+        <input type="text" id="rentdate" name="Date_out" required>
+        
+        <label for="returndate">Return Date</label>
+        <input type="text" id="returndate" name="Date_in" required>
+
+        <button type="submit">Save</button>
+
     </form>
     <a href="/home">Home</a>
-    <script>
-        const custID = document.querySelector('#custid');
-        const generate = document.querySelector('#generate');
-
-        generate.addEventListener('click', e => {
-            e.preventDefault();
-            let num = Math.floor(Math.random() * 2000) + 1;
-            console.log(num);
-            custID.value = `${num}`;
-            generate.disabled = true;
-            generate.style = "background-color: grey; cursor: not-allowed;"
-        });
-    </script>
+    
 </body>
 </html>

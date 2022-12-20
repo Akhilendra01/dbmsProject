@@ -3,9 +3,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>New Customer</title>
+    <title><%=data.name%></title>
 </head>
-
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@300&display=swap');
 
@@ -38,7 +37,7 @@
         padding: 5px;
         width: 80%;
         margin-bottom: 20px;
-        transition: width 0.8s;
+        transition: width 0.8s 0.2s;
     }
 
     input:focus {
@@ -63,43 +62,13 @@
         padding-inline: 20px;
         border-radius: 5px;
         cursor: pointer;
-
-    }
-
-    #generate {
-        font-size: 14px;
-        height: 20px;
-        margin-bottom: 10px;
     }
 </style>
-
-
 <body>
-    <h1>Add a new Customer</h1>
-    <form action="/newCustomer" method="POST">
-            <label for="custid">Customer ID
-                <button id="generate">Generate</button>
-            </label>
-            <input type="number" id="custid" name="cust_id" required>
- 
-            <label for="name">Name</label>
-            <input type="text" id="name" name="name" required>
-
-            <button type="submit">Save</button>
-    </form>
+    <h1>Game: <%= data.name %> </h1>
+    <h2>Game ID: <%= data.game_id %> </h2>
+    <h2>Price: <%= data.price %> </h2>
+    <h2>category: <%= data.category %> </h2>
     <a href="/home">Home</a>
-    <script>
-        const custID = document.querySelector('#custid');
-        const generate = document.querySelector('#generate');
-
-        generate.addEventListener('click', e => {
-            e.preventDefault();
-            let num = Math.floor(Math.random() * 2000) + 1;
-            console.log(num);
-            custID.value = `${num}`;
-            generate.disabled = true;
-            generate.style = "background-color: grey; cursor: not-allowed;"
-        });
-    </script>
 </body>
 </html>

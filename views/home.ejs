@@ -7,6 +7,11 @@
 </head>
 
 <style>
+    @import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@300&display=swap');
+
+    * {
+        font-family: 'Ubuntu', sans-serif;
+    }
 
     body{
         display: flex;
@@ -20,6 +25,7 @@
 </style>
 
 <body>
+    <h1>Dashboard</h1>
     <% for(let store of data) {%>
     <a href="/store/<%=store.store_id%>">
         <%= store.store_id%>

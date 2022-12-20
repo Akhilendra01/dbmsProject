@@ -63,6 +63,48 @@ app.post('/newCustomer', (req, res)=>{
     res.redirect('/home');
 });
 
+//rent a game
+app.post('/rent', (req, res)=>{
+    const data=req.body;
+    console.log(data);
+
+    var sql1 = `insert into rent values (${data.cust_id}, ${data.game_id}, ${data.store_id}, "${data.Date_out}", "${data.Date_in}")`;
+    var sql2= 
+     `update available 
+      set copies_aval=copies_aval-1
+      where game_id=${data.game_id} and store_id=${data.store_id};`;
+
+    db.query(sql1, (err, data)=>{});
+    db.query(sql2, (err, data)=>{});
+
+    res.redirect('/home');
+});
+
+// return a game
+app.post('/return', (req, res)=>{
+    const data=req.body;
+
+    var sql1=
+    `update available
+        set
+            copies_aval=copies_aval+1
+        where
+            game_id=${data.game_id} and store_id=${data.store_id};
+    `;
+
+    var sql2=
+    `delete from rent where 
+        game_id=${data.game_id} and store_id=${data.store_id} and cust_id=${data.cust_id};
+    `;
+
+    db.query(sql1, (err, data)=>{});
+    db.query(sql2, (err, data)=>{});
+
+    res.redirect('/home');
+
+    console.log(data);
+});
+
 // renders home page
 app.get('/home', (req, res)=>{
     var sql = `select * from store`;
@@ -97,6 +139,33 @@ app.get('/store/:id/addNewGame', (req, res)=>{
 
 app.get('/newCustomer', (req, res)=>{
     res.render('newCustomer');
+});
+
+app.get('/store/:store_id/rent/:game_id', (req, res)=>{
+    const {store_id, game_id}= req.params;
+    var sql=`select copies_aval from available where store_id=${store_id} and game_id=${game_id}`;
+
+    db.query(sql, (err, data)=>{
+        if(data[0].copies_aval==0){
+            res.send('No Copies left');
+        }
+        else{
+            res.render('rent', { store_id, game_id });
+        }
+    });
+});
+
+app.get('/store/:store_id/return/:game_id', (req, res)=>{
+    const { store_id, game_id } = req.params;
+    res.render('return', { store_id, game_id }); 
+});
+
+app.get('/info/:game_id', (req, res)=>{
+    const {game_id}= req.params;
+    var sql=`select * from games where game_id=${game_id}`;
+    db.query(sql, (err, data)=>{
+        res.render('info', {data: data[0]});
+    });
 });
 
 app.listen(3000, ()=>{

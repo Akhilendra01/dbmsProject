@@ -14,12 +14,16 @@
         justify-content: center;
         align-items: center;
     }
+    a{
+        font-size: 14px;
+    }
 </style>
 <body >
     <% for(let game of data){ %>
         <h3><%= game.game_id %>  <%= game.name %>  <%= game.copies_aval %>
             <a href="/store/<%= id %>/rent/<%= game.game_id %>">Rent</a>
             <a href="/store/<%= id %>/return/<%= game.game_id %>">Return</a>
+            <a href="/info/<%= game.game_id %>">Info</a>
         </h3>
         <% } %>  
         <a href="/newCustomer">New Customer?</a>
