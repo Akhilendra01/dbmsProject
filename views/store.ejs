@@ -7,16 +7,68 @@
 </head>
 
 <style>
-    body{
-        background-color: rgb(182, 186, 182);
+    @import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@300&display=swap');
+
+    * {
+        font-family: 'Ubuntu', sans-serif;
+    }
+
+    body {
         display: flex;
         flex-direction: column;
-        justify-content: center;
         align-items: center;
+        justify-content: center;
+        /* color:white; */
+        /* background-color: black; */
     }
+
+    form {
+        display: grid;
+        width: 40%;
+    }
+
+    input {
+        height: 35px;
+        font-size: 20px;
+        font-weight: 500;
+        border-top: none;
+        border-left: none;
+        border-right: none;
+        border-bottom: 1px solid rgb(255, 183, 0);
+        padding: 5px;
+        width: 80%;
+        margin-bottom: 20px;
+        transition: width 0.8s 0.2s;
+    }
+
+    input:focus {
+        font-size: 18px;
+        border-bottom: 2px solid red;
+        width: 100%;
+        outline: none;
+    }
+
+    label {
+        font-size: 20px;
+    }
+
+    button {
+        background: none;
+        border: 1px solid rgb(4, 113, 255);
+        background-color: rgb(113, 162, 226);
+        color: white;
+        font-size: 20px;
+        width: 100px;
+        height: 45px;
+        padding-inline: 20px;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
     a{
         font-size: 14px;
     }
+
 </style>
 <body >
     <% for(let game of data){ %>
