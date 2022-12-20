@@ -69,6 +69,6 @@ insert into rent values
 (11,12,1,"2022-06-09","2022-06-22");
 
 
-select * from available where 1=store_id;
 
-select * from store;
+use projectdb;
+select count(game_id) as cnt from games where game_id=21;

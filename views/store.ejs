@@ -8,13 +8,20 @@
 
 <style>
     body{
-        background-color: green;
+        background-color: rgb(182, 186, 182);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
     }
 </style>
 <body >
     <% for(let game of data){ %>
-        <h3><%= game.game_id %>  <%= game.name %>  <%= game.copies_aval %> </h3>
-    <% } %>  
-    <a href="/home">Back</a>
+        <h3><%= game.game_id %>  <%= game.name %>  <%= game.copies_aval %>
+            <a href=""></a>
+        </h3>
+        <% } %>  
+        <a href="/store/<%= id %>/addNewGame">Add a New Game</a>
+        <a href="/home">Back</a>
 </body>
 </html>

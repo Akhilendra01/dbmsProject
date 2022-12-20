@@ -2,7 +2,6 @@ const mysql=require('mysql2');
 const express=require('express');
 const path = require('path');
 const methodOverride = require('method-override');
-const { randomUUID } = require('crypto');
 
 const app=express();
 app.set('views', path.join(__dirname, 'views'));
@@ -34,6 +33,25 @@ app.post('/home', (req, res) => {
     });
 });
 
+app.post('/store/:id', (req, res)=>{
+    const data=req.body;
+    const {id: store_id}=req.params;
+    var sql1 =`select count(game_id) as cnt from games where game_id=${data.game_id};`
+    var sql2=`insert into games values (${+data.game_id}, "${data.name}", ${+data.price}, "${data.category}");`;
+    var sql3=`insert into available values (${+data.game_id}, ${store_id}, ${+data.copies_aval});`
+    console.log(sql2+sql3);
+    db.query(sql1, (err, data)=>{
+        // console.log(data[0].cnt);
+        if(data[0].cnt==0){
+            db.query(sql2, (err, data)=>{
+                console.log(data);
+            });
+        }
+        db.query(sql3, (err, data)=>{});
+        res.redirect('/home');
+    });
+});
+
 app.get('/home', (req, res)=>{
     var sql = `select * from store`;
     db.query(sql, (err, data) => {
@@ -44,16 +62,23 @@ app.get('/home', (req, res)=>{
 
 app.get('/newStore', (req, res)=>{
     res.render('newStore');
-})
+});
 
 app.get('/store/:id', (req, res)=>{
     const {id}=req.params;
     var sql=`select * from available natural join games where ${id}=store_id`;
     db.query(sql, (err, data)=>{
         // console.log(data);
-        res.render('store', {data});
+        res.render('store', {data: data, id: id});
     });
 });
+
+
+app.get('/store/:id/addNewGame', (req, res)=>{
+    const {id}=req.params;
+    res.render('addNewGame', {id});
+});
+
 
 app.listen(3000, ()=>{
     console.log('Listening to port 3000');
