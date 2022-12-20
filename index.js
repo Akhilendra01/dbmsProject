@@ -44,8 +44,9 @@ app.post('/store/:id', (req, res)=>{
     var sql3=`insert into available values (${+data.game_id}, ${store_id}, ${+data.copies_aval});`
     console.log(sql2+sql3);
     db.query(sql1, (err, data)=>{
-        // console.log(data[0].cnt);
-        if(data[0].cnt==0){
+        console.log(data[0].cnt);
+        const count=data[0].cnt;
+        if(!count){
             db.query(sql2, (err, data)=>{
                 console.log(data);
             });
