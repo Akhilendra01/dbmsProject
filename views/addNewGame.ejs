@@ -99,6 +99,9 @@
                 let num = Math.floor(Math.random() * 2000) + 1;
                 console.log(num);
                 gameID.value=num;
+                generate.disabled=true;
+                generate.style="background-color: grey;"
+                gameID.disabled=true;
             });
     </script>
 
