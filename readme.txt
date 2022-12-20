@@ -1,1 +1,0 @@
-node dependencies: mysql2 express ejs 
