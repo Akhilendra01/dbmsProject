@@ -1,4 +1,5 @@
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,31 +8,56 @@
 </head>
 
 <style>
-    @import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@300&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@800&display=swap');
 
     * {
         font-family: 'Ubuntu', sans-serif;
     }
 
     body{
+        background: url('../images/wallpaperflare.com_wallpaper.jpg');
+        background-size: cover;
+        background-position: center center;
+        background-repeat: no-repeat;
+        backdrop-filter: blur(2px);
+
+    }
+
+    #mainhead{
+        display:flex;
+        justify-content: center;
+        font-weight: bold;
+        font-size: 5em;
+        
+       
+    }
+
+    .main {
         display: flex;
         justify-content: center;
         align-items: center;
+        font-size: 1.5em;
+        
     }
 
-    a{
+    a {
         margin: 3em;
+        color: lightblue;
     }
 </style>
 
 <body>
-    <h1>Dashboard</h1>
-    <% for(let store of data) {%>
-    <a href="/store/<%=store.store_id%>">
-        <%= store.store_id%>
-        <%= store.location %>
-    </a>
-    <% } %>  
-    <a href="/newStore">Add Store</a>
+    <h1 id="mainhead">Dashboard</h1>
+    <section class="main">
+        <% let i=1; %> 
+        <% for(let store of data) {%>
+            <a href="/store/<%=store.store_id%>">
+                <%= i++%>.
+                    <%= store.location %>
+            </a>
+            <% } %>
+                <a href="/newStore">Add Store</a>
+    </section>
 </body>
+
 </html>

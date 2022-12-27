@@ -7,7 +7,7 @@
 </head>
 
 <style>
-    @import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@300&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@800&display=swap');
 
     * {
         font-family: 'Ubuntu', sans-serif;
@@ -20,6 +20,28 @@
         justify-content: center;
         /* color:white; */
         /* background-color: black; */
+        background: url('../images/676037.jpg');
+        background-size: cover;
+        background-position: center center;
+        background-repeat: no-repeat;
+        backdrop-filter: blur(2px);
+        /* color: white; */
+        
+    }
+
+    .scol{
+        display: inline-grid;
+        
+    }
+
+    .headi{
+        font-size: 3em;
+        color: blueviolet;
+    }
+
+    .data1{
+        font-size: 1.2em;
+        color: white;
     }
 
     form {
@@ -64,22 +86,28 @@
         border-radius: 5px;
         cursor: pointer;
     }
+    
 
-    a{
-        font-size: 14px;
-    }
+
+       
 
 </style>
 <body >
+    <h1 class="headi">Store ID <%= id %>: <%= location %>  </h1>
+    <% let i=1; %> 
+    <div class="scol">
     <% for(let game of data){ %>
-        <h3><%= game.game_id %>  <%= game.name %>  <%= game.copies_aval %>
-            <a href="/store/<%= id %>/rent/<%= game.game_id %>">Rent</a>
-            <a href="/store/<%= id %>/return/<%= game.game_id %>">Return</a>
-            <a href="/info/<%= game.game_id %>">Info</a>
+        <h3 class="data1"><%= game.game_id %>  <%= game.name %>  <%= game.copies_aval %>
+            <div><a style="color: red;" href="/store/<%= id %>/rent/<%= game.game_id %>">Rent</a></div>
+            <div><a style="color: azure;" href="/store/<%= id %>/return/<%= game.game_id %>">Return</a></div>
+            <div><a style="color: cyan;" href="/info/<%= game.game_id %>">Info</a></div>
         </h3>
-        <% } %>  
-        <a href="/newCustomer">New Customer?</a>
-        <a href="/store/<%= id %>/addNewGame">Add a New Game</a>
-        <a href="/home">Back</a>
+        <% } 
+        %>  
+        <div class="np" ><a href="/newCustomer" style="color: azure;">New Customer?</a></div>
+        <div class="np"><a href="/store/<%= id %>/addNewGame"  style="color: azure;" >Add a New Game</a></div>
+        <div class="np"><a href="/home" style="color: azure;">Back</a></div>
+    </div>  
+        
 </body>
 </html>

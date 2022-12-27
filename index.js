@@ -7,6 +7,7 @@ const app=express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 app.use(express.urlencoded({ extended: true }));
+app.use(express.static(path.join(__dirname, 'public')));
 app.use(methodOverride('_method'));
 
 // db connection
@@ -44,7 +45,7 @@ app.post('/store/:id', (req, res)=>{
     var sql3=`insert into available values (${+data.game_id}, ${store_id}, ${+data.copies_aval});`
     console.log(sql2+sql3);
     db.query(sql1, (err, data)=>{
-        console.log(data[0].cnt);
+        // console.log(data[0].cnt);
         const count=data[0].cnt;
         if(!count){
             db.query(sql2, (err, data)=>{
@@ -126,9 +127,13 @@ app.get('/newStore', (req, res)=>{
 app.get('/store/:id', (req, res)=>{
     const {id}=req.params;
     var sql=`select * from available natural join games where ${id}=store_id`;
+    var sql1=`select location from store where store_id=${id};`;
+    var dat;
+    db.query(sql1, (err, data)=>{
+        dat=data;
+    });
     db.query(sql, (err, data)=>{
-        // console.log(data);
-        res.render('store', {data: data, id: id});
+        res.render('store', {data: data, id: id, location: dat[0].location});
     });
 });
 
