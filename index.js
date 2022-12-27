@@ -43,13 +43,13 @@ app.post('/store/:id', (req, res)=>{
     var sql1 =`select count(game_id) as cnt from games where game_id=${data.game_id};`
     var sql2=`insert into games values (${+data.game_id}, "${data.name}", ${+data.price}, "${data.category}");`;
     var sql3=`insert into available values (${+data.game_id}, ${store_id}, ${+data.copies_aval});`
-    console.log(sql2+sql3);
+    // console.log(sql2+sql3);
     db.query(sql1, (err, data)=>{
         // console.log(data[0].cnt);
         const count=data[0].cnt;
         if(!count){
             db.query(sql2, (err, data)=>{
-                console.log(data);
+                // console.log(data);
             });
         }
         db.query(sql3, (err, data)=>{});
@@ -68,7 +68,7 @@ app.post('/newCustomer', (req, res)=>{
 //rent a game
 app.post('/rent', (req, res)=>{
     const data=req.body;
-    console.log(data);
+    // console.log(data);
 
     var sql1 = `insert into rent values (${data.cust_id}, ${data.game_id}, ${data.store_id}, "${data.Date_out}", "${data.Date_in}")`;
     var sql2= 
@@ -104,7 +104,7 @@ app.post('/return', (req, res)=>{
 
     res.redirect('/home');
 
-    console.log(data);
+    // console.log(data);
 });
 
 // renders home page
