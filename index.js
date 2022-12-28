@@ -7,13 +7,14 @@ const app=express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 app.use(express.urlencoded({ extended: true }));
+app.use(express.static(path.join(__dirname, 'public')));
 app.use(methodOverride('_method'));
 
 // db connection
 const db=mysql.createConnection({
     host:"localhost",
     user:"root",
-    password:"Example@2022#",
+    password:"TesterO1$5+#",
     database:"projectdb"
 });
 db.connect(err=>{
@@ -125,9 +126,13 @@ app.get('/newStore', (req, res)=>{
 app.get('/store/:id', (req, res)=>{
     const {id}=req.params;
     var sql=`select * from available natural join games where ${id}=store_id`;
+    var sql1=`select location from store where store_id=${id};`;
+    var dat;
+    db.query(sql1, (err, data)=>{
+        dat=data;
+    });
     db.query(sql, (err, data)=>{
-        // console.log(data);
-        res.render('store', {data: data, id: id});
+        res.render('store', {data: data, id: id, location: dat[0].location});
     });
 });
 
