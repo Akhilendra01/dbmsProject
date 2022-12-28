@@ -72,3 +72,8 @@ insert into rent values
 
 use projectdb;
 select count(game_id) as cnt from games where game_id=21;
+
+select * from games;
+select * from customer;
+select * from available;
+select * from rent;
